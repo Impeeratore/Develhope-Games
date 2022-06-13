@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Game;
+import com.example.demo.model.Reviews;
 import com.example.demo.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,11 @@ public class GameController {
         return gameService.listAllGames();
     }
 
+    @GetMapping("{id}/reviews")
+    public List<Reviews> getGameReviews(@PathVariable Integer id){
+        return gameService.getGame(id).getReviewsList();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Game> get(@PathVariable Integer id) {
         try {
@@ -38,7 +44,7 @@ public class GameController {
     public ResponseEntity<?> update(@RequestBody Game user, @PathVariable Integer id) {
         try {
             Game  existsGame = gameService.getGame(id);
-            user.setGame_id(id);
+            user.setGameId(id);
             gameService.saveGame(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
