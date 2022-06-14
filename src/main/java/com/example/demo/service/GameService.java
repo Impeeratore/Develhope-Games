@@ -12,6 +12,7 @@ import java.util.List;
 public class GameService {
     @Autowired
     private GameRepository gameRepository;
+
     public List<Game> listAllGames() {
         return gameRepository.findAll();
     }

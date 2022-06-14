@@ -1,0 +1,5 @@
+spring:
+    datasource:
+        password: password
+        url: jdbc:mysql://localhost:3306/develhope_games
+        username: root

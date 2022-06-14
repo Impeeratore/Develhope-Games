@@ -2,34 +2,34 @@ package com.example.demo.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.sql.Date.*;
+import java.util.List;
 
 @Entity
 @Table(name = "game")
 public class Game {
     private int game_id;
-    private String game_name;
+    private String gameName;
     private String description;
     private String developer;
     private double price;
-    private Date release_date;
+    private Date releaseDate;
     private String category;
     private String language;
-    private String system_requirements;
+    private String systemRequirements;
 
     public Game() {
     }
 
     public Game(int id, String name, String description, String developer, double price, Date release_date, String category, String lang, String system_requirements ) {
         this.game_id = id;
-        this.game_name = name;
+        this.gameName = name;
         this.description=description;
         this.developer=developer;
         this.price=price;
-        this.release_date=release_date;
+        this.releaseDate =release_date;
         this.category=category;
         this.language=lang;
-        this.system_requirements=system_requirements;
+        this.systemRequirements =system_requirements;
     }
 
     @Id
@@ -38,8 +38,8 @@ public class Game {
         return game_id;
     }
 
-    public String getGame_name() {
-        return game_name;
+    public String getGameName() {
+        return gameName;
     }
 
     public String getDescription() {
@@ -54,8 +54,8 @@ public class Game {
         return price;
     }
 
-    public Date getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
     public String getCategory() {
@@ -66,15 +66,15 @@ public class Game {
         return language;
     }
 
-    public String getSystem_requirements() {
-        return system_requirements;
+    public String getSystemRequirements() {
+        return systemRequirements;
     }
     public void setGame_id(int game_id) {
         this.game_id = game_id;
     }
 
-    public void setGame_name(String game_name) {
-        this.game_name = game_name;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
     public void setDescription(String description) {
@@ -89,8 +89,8 @@ public class Game {
         this.price = price;
     }
 
-    public void setRelease_date(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public void setCategory(String category) {
@@ -101,9 +101,13 @@ public class Game {
         this.language = language;
     }
 
-    public void setSystem_requirements(String system_requirements) {
-        this.system_requirements = system_requirements;
+    public void setSystemRequirements(String systemRequirements) {
+        this.systemRequirements = systemRequirements;
     }
+
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "game")
+    @Column (nullable = false)
+    private List<Review> reviews;
 
 
 
