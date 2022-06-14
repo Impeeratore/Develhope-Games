@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Game;
+import com.example.demo.model.Review;
 import com.example.demo.service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,22 +25,28 @@ public class GameController {
     @GetMapping("/{id}")
     public ResponseEntity<Game> get(@PathVariable Integer id) {
         try {
-            Game user = gameService.getGame(id);
-            return new ResponseEntity<Game>(user, HttpStatus.OK);
+            Game game = gameService.getGame(id);
+            return new ResponseEntity<Game>(game, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/{id}/reviews")
+    public List<Review> getGameReviews(@PathVariable int id) {
+        return gameService.getGame(id).getReviews();
+    }
+
     @PostMapping("/")
     public void add(@RequestBody Game game) {
         gameService.saveGame(game);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Game user, @PathVariable Integer id) {
+    public ResponseEntity<?> update(@RequestBody Game game, @PathVariable Integer id) {
         try {
             Game  existsGame = gameService.getGame(id);
-            user.setGame_id(id);
-            gameService.saveGame(user);
+            game.setGameId(id);
+            gameService.saveGame(game);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
