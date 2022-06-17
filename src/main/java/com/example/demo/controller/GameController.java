@@ -30,7 +30,7 @@ public class GameController {
             return new ResponseEntity<Game>(HttpStatus.NOT_FOUND);
         }
     }
-    @PostMapping("/")
+    @PostMapping("")
     public void add(@RequestBody Game game) {
         gameService.saveGame(game);
     }
@@ -38,7 +38,7 @@ public class GameController {
     public ResponseEntity<?> update(@RequestBody Game user, @PathVariable Integer id) {
         try {
             Game  existsGame = gameService.getGame(id);
-            user.setGame_id(id);
+            user.setGameId(id);
             gameService.saveGame(user);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {

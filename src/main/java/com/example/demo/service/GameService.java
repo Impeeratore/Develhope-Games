@@ -12,13 +12,12 @@ import java.util.List;
 public class GameService {
     @Autowired
     private GameRepository gameRepository;
-
     public List<Game> listAllGames() {
         return gameRepository.findAll();
     }
 
-    public void saveGame(Game user) {
-        gameRepository.save(user);
+    public void saveGame(Game game) {
+        gameRepository.save(game);
     }
 
     public Game getGame(Integer id) {

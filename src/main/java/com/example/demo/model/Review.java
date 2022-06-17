@@ -5,45 +5,59 @@ import javax.persistence.*;
 @Entity
 @Table(name = "review")
 public class Review {
-
-    private int reviewId;
-    private int stars;
-    private String comments;
-
-    public Review(){
-    }
-
-    public Review(int stars, String comments) {
-        this.stars = stars;
-        this.comments = comments;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getReviewId() {
-        return reviewId;
+    private int id;
+    private String comment;
+    private int stars;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_game")
+    private Game game;
+
+    @ManyToOne
+    @JoinColumn (name = "fk_user")
+    private User user;
+
+    public Review(int id, String comment, int stars, Game game) {
+        this.id = id;
+        this.comment = comment;
+        this.stars = stars;
+        this.game = game;
+    }
+
+    public Review() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public int getStars() {
         return stars;
     }
 
-    public String getComments() {
-        return comments;
-    }
-
-    public void setReviewId(int reviewId) {
-        this.reviewId = reviewId;
-    }
-
     public void setStars(int stars) {
         this.stars = stars;
     }
 
-    public void setComments(String comments) {
-        this.comments = comments;
+    public Game getGame() {
+        return game;
     }
 
-    @ManyToOne
-    private Game game;
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }

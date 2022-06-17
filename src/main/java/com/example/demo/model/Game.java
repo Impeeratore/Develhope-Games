@@ -7,7 +7,9 @@ import java.util.List;
 @Entity
 @Table(name = "game")
 public class Game {
-    private int game_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int gameId;
     private String gameName;
     private String description;
     private String developer;
@@ -17,11 +19,14 @@ public class Game {
     private String language;
     private String systemRequirements;
 
+    @OneToMany(mappedBy = "game")
+    private List<Review> review;
+
     public Game() {
     }
 
     public Game(int id, String name, String description, String developer, double price, Date release_date, String category, String lang, String system_requirements ) {
-        this.game_id = id;
+        this.gameId = id;
         this.gameName = name;
         this.description=description;
         this.developer=developer;
@@ -32,10 +37,8 @@ public class Game {
         this.systemRequirements =system_requirements;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getGame_id() {
-        return game_id;
+    public int getGameId() {
+        return gameId;
     }
 
     public String getGameName() {
@@ -69,8 +72,9 @@ public class Game {
     public String getSystemRequirements() {
         return systemRequirements;
     }
-    public void setGame_id(int game_id) {
-        this.game_id = game_id;
+
+    public void setGameId(int gameId) {
+        this.gameId = gameId;
     }
 
     public void setGameName(String gameName) {
@@ -104,10 +108,6 @@ public class Game {
     public void setSystemRequirements(String systemRequirements) {
         this.systemRequirements = systemRequirements;
     }
-
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "game")
-    @Column (nullable = false)
-    private List<Review> reviews;
 
 
 
