@@ -7,10 +7,11 @@ import java.util.List;
 @Entity
 @Table(name = "game")
 public class Game {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int gameId;
-    private String gameName;
+    private int id;
+    private String name;
     private String description;
     private String developer;
     private double price;
@@ -26,8 +27,8 @@ public class Game {
     }
 
     public Game(int id, String name, String description, String developer, double price, Date release_date, String category, String lang, String system_requirements ) {
-        this.gameId = id;
-        this.gameName = name;
+        this.id = id;
+        this.name = name;
         this.description=description;
         this.developer=developer;
         this.price=price;
@@ -37,12 +38,10 @@ public class Game {
         this.systemRequirements =system_requirements;
     }
 
-    public int getGameId() {
-        return gameId;
-    }
+    public int getId() { return id; }
 
-    public String getGameName() {
-        return gameName;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
@@ -73,12 +72,10 @@ public class Game {
         return systemRequirements;
     }
 
-    public void setGameId(int gameId) {
-        this.gameId = gameId;
-    }
+    public void setId(int id) { this.id = id; }
 
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {

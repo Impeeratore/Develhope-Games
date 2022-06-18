@@ -35,8 +35,7 @@ public class User {
         this.country = country;
     }
 
-    public User() {
-    }
+    public User(){}
 
     public int getId() {
         return id;
