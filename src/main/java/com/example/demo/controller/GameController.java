@@ -13,13 +13,17 @@ public class GameController {
     @Autowired
     GameService gameService;
 
+    //region GetMapping
     @GetMapping("")
-    public List<Game> list() {
-        return gameService.listAllGames();
-    }
+    public List<Game> list() {return gameService.listAllGames();}
 
     @GetMapping("/{id}")
     public Game get(@PathVariable Integer id) { return  gameService.getGame(id); }
+
+    @GetMapping("/user/{id}")
+    public List<Game> getGamesByUser(@PathVariable Integer id) { return  gameService.getGamesByUser(id); }
+
+//endregion
 
     @PostMapping("")
     public void add(@RequestBody Game game) {
@@ -30,6 +34,6 @@ public class GameController {
     public Game update(@RequestBody Game game, @PathVariable Integer id) { return gameService.updateGame(game); }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) { gameService.deleteGame(id);
-    }
+    public void delete(@PathVariable Integer id) { gameService.deleteGame(id); }
+
 }

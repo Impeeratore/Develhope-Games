@@ -20,9 +20,11 @@ public class Game {
     private String language;
     private String systemRequirements;
 
+
     @OneToMany(mappedBy = "game")
     private List<Review> review;
 
+    //region Costruttori
     public Game() {
     }
 
@@ -37,7 +39,9 @@ public class Game {
         this.language=lang;
         this.systemRequirements =system_requirements;
     }
+//endregion
 
+    //region Getter e Setter
     public int getId() { return id; }
 
     public String getName() {
@@ -105,6 +109,11 @@ public class Game {
     public void setSystemRequirements(String systemRequirements) {
         this.systemRequirements = systemRequirements;
     }
+
+
+
+    //endregion
+
 
 
 

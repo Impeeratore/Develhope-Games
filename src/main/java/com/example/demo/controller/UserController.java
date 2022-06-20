@@ -10,18 +10,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     UserService userService;
 
+    //region GetMapping
     @GetMapping("")
-    public List<User> userList(){
-        return userService.listAllUsers();
-    }
+    public List<User> userList(){ return userService.listAllUsers(); }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Integer id){
-        return userService.getUserById(id);
-    }
+    public User getUser(@PathVariable Integer id){ return userService.getUser(id); }
+
+    @GetMapping("/game/{id}")
+    public List<User> getUserFromGame(@PathVariable Integer id) { return userService.getUserByGameId(id); }
+//endregion
 
     @PostMapping("")
     public void addUser(@RequestBody User user){

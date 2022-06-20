@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 
 @Entity
+@Component
 @Table(name = "review")
 public class Review {
 
@@ -10,7 +13,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String comment;
-    private int stars;
+    private double votes;
 
     @ManyToOne
     @JoinColumn(name = "fk_game")
@@ -20,16 +23,18 @@ public class Review {
     @JoinColumn (name = "fk_user")
     private User user;
 
+    //region Costruttori
+    public Review() {}
+
     public Review(int id, String comment, int stars, Game game) {
         this.id = id;
         this.comment = comment;
-        this.stars = stars;
+        this.votes = stars;
         this.game = game;
     }
+//endregion
 
-    public Review() {
-    }
-
+    //region Getter e Setter
     public int getId() {
         return id;
     }
@@ -46,19 +51,16 @@ public class Review {
         this.comment = comment;
     }
 
-    public int getStars() {
-        return stars;
+    public double getVotes() { return votes; }
+
+    public void setVotes(int votes) {
+        this.votes = votes;
     }
 
-    public void setStars(int stars) {
-        this.stars = stars;
-    }
+    public void setGame(Game game) { this.game = game; }
 
-    public Game getGame() {
-        return game;
-    }
+    public void setUser(User user) { this.user = user; }
 
-    public void setGame(Game game) {
-        this.game = game;
-    }
+    //endregion
+
 }

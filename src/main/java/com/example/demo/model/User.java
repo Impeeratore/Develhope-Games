@@ -22,6 +22,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
 
+    //region Costruttori
+    public User(){}
 
     public User(int id, String name, String surname, String playerName, String mail, Date birth, String subscription, double user_wallet, String country) {
         this.id = id;
@@ -34,9 +36,9 @@ public class User {
         this.userWallet = user_wallet;
         this.country = country;
     }
+//endregion
 
-    public User(){}
-
+    //region Getter e Setter
     public int getId() {
         return id;
     }
@@ -109,12 +111,6 @@ public class User {
         this.country = country;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
+//endregion
 
 }
