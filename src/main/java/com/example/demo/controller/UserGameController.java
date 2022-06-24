@@ -14,10 +14,9 @@ public class UserGameController {
     private UserGameService userGameService;
 
     @PostMapping
-    public void addGameToUserById(@RequestParam Integer gameId, @RequestParam Integer userId) {
-        userGameService.addGameToUser(gameId, userId, new UserGame()); }
+    public void addGameToUser(@RequestParam Integer gameId, @RequestParam Integer userId) { userGameService.addGameToUser(gameId, userId, new UserGame()); }
 
     @DeleteMapping
-    public void deleteGameFromUserById(@RequestParam Integer gameId, @RequestParam Integer userId) { userGameService.deleteGameFromUser(gameId, userId); }
+    public void deleteGameFromUser(@RequestParam Integer gameId, @RequestParam Integer userId) { userGameService.deleteGameFromUser(gameId, userId); }
 
 }

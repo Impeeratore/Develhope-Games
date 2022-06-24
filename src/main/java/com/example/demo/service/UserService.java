@@ -3,11 +3,12 @@ package com.example.demo.service;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.stereotype.Service;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
-
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -15,33 +16,31 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EntityManager entityManager;
 
     //region CRUD
     public List<User> listAllUsers() { return userRepository.findAll(); }
 
     public void saveUser(User user) { userRepository.save(user); }
 
-    public User getUser(Integer id) { return userRepository.findById(id).get();}
-
-    public void deleteUser (Integer id){ userRepository.deleteById(id); }
-
-    public User updateUser (User user){
-            user.setId(user.getId());
-            User newUser = userRepository.saveAndFlush(user);
-            return newUser;
+    public ResponseEntity<User> getUser(Integer id) {
+        try {
+            User user = userRepository.findById(id).get();
+            return new ResponseEntity<User>(user, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
-//endregion
-
-    //region MetodiExtra
-    public List<User> getUserByGameId(Integer id) {
-        Query query = entityManager.createQuery("SELECT u FROM UserGame ug JOIN ug.user u JOIN ug.game g WHERE g.id = '"+id+"'");
-        List<User> resultList = query.getResultList();
-        return resultList;
     }
+
+    public void deleteUser (Integer id) { userRepository.deleteById(id); }
+
+    public User updateUser (User user) { return userRepository.saveAndFlush(user); }
 //endregion
 
+    //region Metodi Extra
+
+    public List<User> getUserByGameId(Integer id) { return userRepository.getUserByGameId(id); }
+
+//endregion
 
 }
 

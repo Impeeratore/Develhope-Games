@@ -8,8 +8,6 @@ import com.example.demo.repository.UserGameRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 @Transactional
@@ -25,9 +23,6 @@ public class UserGameService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EntityManager entityManager;
-
 
     public void addGameToUser(int gameId, int userId, UserGame library){
         Game game = gameRepository.findById(gameId).get();
@@ -36,11 +31,7 @@ public class UserGameService {
         library.setUser(user);
         userGameRepository.save(library); }
 
-    public void deleteGameFromUser(int gameId, int userId) {
-        Query query = entityManager.createQuery("DELETE FROM UserGame ug WHERE ug.game = '"+gameId+"' and ug.user = '"+userId+"'");
-        query.executeUpdate();
-
-        }
+    public void deleteGameFromUser(Integer gameId, Integer userId) { userGameRepository.deleteGameFromUser(gameId, userId); }
 
     }
 
